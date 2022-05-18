@@ -12,8 +12,11 @@ function saveTodos(){
 function deleteTodo(event){
     const li = event.target.parentElement;
     li.remove();
-    toDos.splice(event.target.parentNode.id, 1);
-    console.log(toDos);
+    for(let i = 0; i < toDos.length; i++ ){
+        if (toDos[i].id == event.target.parentNode.id){
+            toDos.splice(i, 1);
+        }
+    }
     saveTodos();
 }
 
@@ -46,12 +49,10 @@ function paintTodo(newTodo) {
 }
 
 toDoForm.addEventListener("submit", handleToDoSubmit);
-function sayHello() {
-    console.log("hello");
-}
 
 const savedTodos = JSON.parse(localStorage.getItem(TODOS_KEY));
 
 if (savedTodos !== null) {
     savedTodos.forEach(paintTodo);
+    toDos = savedTodos;
 }
